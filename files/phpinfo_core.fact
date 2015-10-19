@@ -1,0 +1,7 @@
+#!/usr/bin/php
+<?php
+$result = get_defined_constants(true);
+$result = array_change_key_case($result['Core']);
+unset($result['stdin'], $result['stdout'], $result['stderr']);
+echo json_encode($result);
+?>

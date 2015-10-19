@@ -1,0 +1,3 @@
+---
+apt_package: php5
+php_extension_ini_dir: "/etc/php5/mods-available"

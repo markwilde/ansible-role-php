@@ -1,0 +1,22 @@
+---
+- name: include os-specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Set php extension ini directory
+  set_fact:
+    php_extension_ini_dir: "{{php_extension_ini_dir}}"
+
+- include: debian/main.yml
+  when: ansible_os_family == 'Debian'
+
+- include: redhat/main.yml
+  when: ansible_os_family == 'RedHat'
+
+- name: ensure directory for ansible custom facts
+  file: state=directory recurse=yes path=/etc/ansible/facts.d
+
+- name: install phpinfo_core fact
+  copy: src=phpinfo_core.fact dest=/etc/ansible/facts.d mode=744
+
+- name: refresh facts
+  setup: filter=ansible_local

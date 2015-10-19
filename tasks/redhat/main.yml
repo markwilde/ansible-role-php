@@ -1,0 +1,3 @@
+---
+- name: redhat | install php package
+  yum: name={{yum_package}} state=installed
